@@ -5,6 +5,8 @@ import br.com.taoshu.entity.Aluno;
 import br.com.taoshu.exception.ExceptionHandling;
 import br.com.taoshu.repository.ProfessorRepository;
 import br.com.taoshu.service.IProfessorService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -32,8 +34,12 @@ import javax.sql.DataSource;
 @EnableJpaRepositories(basePackageClasses = ProfessorRepository.class)
 public class TaoshuApplication {
 
+	private static final Logger logger = LoggerFactory.getLogger(TaoshuApplication.class);
+
 	public static void main(String[] args) {
+		logger.info("==== PREPARANDO PARA INICIAR API TAO SHU ====");
 		SpringApplication.run(TaoshuApplication.class, args);
+		logger.info("==== API TAO SHU INICIADA ====");
 	}
 
 	@Resource
