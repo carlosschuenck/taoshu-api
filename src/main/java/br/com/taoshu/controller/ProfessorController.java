@@ -39,4 +39,9 @@ public class ProfessorController {
         professorService.delete(id);
         return ResponseEntity.ok("Deletado com sucesso!");
     }
+
+    @GetMapping("/api")
+    public ResponseEntity teste(){
+        return ResponseEntity.ok("API FUNCIONANDO COM SUCESSO!");
+    }
 }
