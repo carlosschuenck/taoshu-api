@@ -15,6 +15,7 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.jdbc.DataSourceBuilder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
 import org.springframework.core.env.Environment;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
@@ -32,6 +33,7 @@ import javax.sql.DataSource;
 @ComponentScan(basePackageClasses = {ProfessorController.class, IProfessorService.class, ExceptionHandling.class})
 @EntityScan(basePackageClasses = Aluno.class)
 @EnableJpaRepositories(basePackageClasses = ProfessorRepository.class)
+@Configuration
 public class TaoshuApplication {
 
 	private static final Logger logger = LoggerFactory.getLogger(TaoshuApplication.class);
@@ -45,13 +47,10 @@ public class TaoshuApplication {
 	@Resource
 	private Environment env;
 
-
-
-	@Primary
 	@Bean
+	@Primary
 	@ConfigurationProperties(prefix = "spring.datasource")
-
-	public DataSource customDataSource() {
+	public DataSource dataSource() {
 		logger.info("==== PREPARANDO A BASE DE DADOS ====");
 		return DataSourceBuilder.create().build();
 	}
