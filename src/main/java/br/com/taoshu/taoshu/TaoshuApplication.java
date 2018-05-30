@@ -50,12 +50,12 @@ public class TaoshuApplication {
 	@Resource
 	private Environment env;
 
-
+/*
 	@Bean
 	@Primary
 	@ConfigurationProperties(prefix = "spring.datasource")
 	public DataSource dataSource() {
 		logger.info("==== PREPARANDO A BASE DE DADOS ====");
 		return DataSourceBuilder.create().build();
-	}
+	}*/
 }
