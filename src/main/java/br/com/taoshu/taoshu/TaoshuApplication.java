@@ -28,6 +28,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import javax.annotation.Resource;
 import javax.sql.DataSource;
 import java.net.URISyntaxException;
+import java.sql.DriverManager;
 
 
 @SpringBootApplication
@@ -58,21 +59,4 @@ public class TaoshuApplication {
 		return DataSourceBuilder.create().build();
 	}*/
 
-    @Bean
-    public DataSource dataSource(
-            @Value("${spring.datasource.driverClassName}") final String driverClass,
-            @Value("${spring.datasource.url}") final String url,
-            @Value("${spring.datasource.username}") final String username,
-            @Value("${spring.datasource.password}") final String password
-    ) throws URISyntaxException {
-
-
-        return DataSourceBuilder
-                .create()
-                .username(username)
-                .password(password)
-                .url(url)
-                .driverClassName(driverClass)
-                .build();
-    }
 }
