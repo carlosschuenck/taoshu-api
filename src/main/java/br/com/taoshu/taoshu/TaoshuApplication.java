@@ -53,5 +53,5 @@ public class TaoshuApplication {
 	public DataSource dataSource() {
 		logger.info("==== PREPARANDO A BASE DE DADOS ====");
 		return DataSourceBuilder.create().build();
-	
+	}
 }
