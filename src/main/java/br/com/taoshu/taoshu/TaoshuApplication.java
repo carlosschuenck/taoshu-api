@@ -5,7 +5,6 @@ import br.com.taoshu.entity.Aluno;
 import br.com.taoshu.exception.ExceptionHandling;
 import br.com.taoshu.repository.ProfessorRepository;
 import br.com.taoshu.service.IProfessorService;
-import javafx.application.Application;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
@@ -21,14 +20,14 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
 import org.springframework.core.env.Environment;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
+import org.springframework.jdbc.datasource.DriverManagerDataSource;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.annotation.Resource;
 import javax.sql.DataSource;
-import java.net.URI;
 import java.net.URISyntaxException;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
 
 
 @SpringBootApplication
@@ -50,31 +49,30 @@ public class TaoshuApplication {
 	@Resource
 	private Environment env;
 
-	/*@Bean
+	/*
+	@Bean
 	@Primary
 	@ConfigurationProperties(prefix = "spring.datasource")
 	public DataSource dataSource() {
 		logger.info("==== PREPARANDO A BASE DE DADOS ====");
 		return DataSourceBuilder.create().build();
-	}
-*/
+	}*/
 
     @Bean
-	public DataSource dataSource(
-			@Value("${spring.datasource.driverClassName}") final String driverClass,
-			@Value("${spring.datasource.url}") final String url,
-			@Value("${spring.datasource.username}") final String username,
-			@Value("${spring.datasource.password}") final String password
-	) throws URISyntaxException {
+    public DataSource dataSource(
+            @Value("${spring.datasource.driverClassName}") final String driverClass,
+            @Value("${spring.datasource.url}") final String url,
+            @Value("${spring.datasource.username}") final String username,
+            @Value("${spring.datasource.password}") final String password
+    ) throws URISyntaxException {
 
 
-		return DataSourceBuilder
-				.create()
-				.username(username)
-				.password(password)
-				.url(url)
-				.driverClassName(driverClass)
-				.build();
-	}
-
+        return DataSourceBuilder
+                .create()
+                .username(username)
+                .password(password)
+                .url(url)
+                .driverClassName(driverClass)
+                .build();
+    }
 }
