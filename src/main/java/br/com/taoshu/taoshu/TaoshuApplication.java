@@ -46,12 +46,12 @@ public class TaoshuApplication {
 		SpringApplication.run(TaoshuApplication.class, args);
 		logger.info("==== API TAO SHU INICIADA ====");
 	}
-/*
+
 	@Bean
 	@Primary
 	@ConfigurationProperties(prefix = "spring.datasource")
 	public DataSource dataSource() {
 		logger.info("==== PREPARANDO A BASE DE DADOS ====");
 		return DataSourceBuilder.create().build();
-	}*/
+	}
 }
