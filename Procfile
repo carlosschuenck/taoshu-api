@@ -1,0 +1,1 @@
+web: java -Dspring-boot.run.profiles=prod -Dserver.port=$PORT $JAVA_OPTS -jar target/taoshu-0.0.1-SNAPSHOT.jar 
