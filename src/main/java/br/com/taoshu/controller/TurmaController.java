@@ -1,7 +1,7 @@
 package br.com.taoshu.controller;
 
 import br.com.taoshu.entity.Turma;
-import br.com.taoshu.service.ITurmaService;
+import br.com.taoshu.service.TurmaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -17,7 +17,7 @@ import java.util.List;
 public class TurmaController {
 
     @Autowired
-    private ITurmaService turmaService;
+    private TurmaService turmaService;
 
     @GetMapping
     public ResponseEntity<List<Turma>> findAll(){

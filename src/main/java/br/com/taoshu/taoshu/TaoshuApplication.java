@@ -1,10 +1,11 @@
 package br.com.taoshu.taoshu;
 
+import br.com.taoshu.config.SwaggerConfig;
 import br.com.taoshu.controller.ProfessorController;
 import br.com.taoshu.entity.Aluno;
 import br.com.taoshu.exception.ExceptionHandling;
 import br.com.taoshu.repository.ProfessorRepository;
-import br.com.taoshu.service.IProfessorService;
+import br.com.taoshu.service.ProfessorService;
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.PropertyAccessor;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -18,11 +19,12 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.http.converter.json.Jackson2ObjectMapperBuilder;
+import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 
 @SpringBootApplication
 @EnableAutoConfiguration
-@ComponentScan(basePackageClasses = {ProfessorController.class, IProfessorService.class, ExceptionHandling.class})
+@ComponentScan(basePackageClasses = {ProfessorController.class, ProfessorService.class, ExceptionHandling.class, SwaggerConfig.class})
 @EntityScan(basePackageClasses = Aluno.class)
 @EnableJpaRepositories(basePackageClasses = ProfessorRepository.class)
 @Configuration

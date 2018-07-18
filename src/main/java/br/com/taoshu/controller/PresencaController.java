@@ -1,7 +1,7 @@
 package br.com.taoshu.controller;
 
 import br.com.taoshu.entity.Presenca;
-import br.com.taoshu.service.IPresencaService;
+import br.com.taoshu.service.PresencaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -17,7 +17,7 @@ import java.util.List;
 public class PresencaController {
 
     @Autowired
-    private IPresencaService presencaService;
+    private PresencaService presencaService;
 
     @GetMapping
     public ResponseEntity<List<Presenca>> findAll(){

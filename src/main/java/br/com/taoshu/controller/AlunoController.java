@@ -1,7 +1,7 @@
 package br.com.taoshu.controller;
 
 import br.com.taoshu.entity.Aluno;
-import br.com.taoshu.service.IAlunoService;
+import br.com.taoshu.service.AlunoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -17,7 +17,7 @@ import java.util.List;
 public class AlunoController {
 
     @Autowired
-    private IAlunoService alunoService;
+    private AlunoService alunoService;
 
     @GetMapping
     public ResponseEntity<List<Aluno>> findAll(){
