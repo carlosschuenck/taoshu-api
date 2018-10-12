@@ -1,15 +1,5 @@
 package br.com.taoshu.taoshu;
 
-import br.com.taoshu.config.SwaggerConfig;
-import br.com.taoshu.controller.ProfessorController;
-import br.com.taoshu.entity.Aluno;
-import br.com.taoshu.exception.ExceptionHandling;
-import br.com.taoshu.repository.ProfessorRepository;
-import br.com.taoshu.service.ProfessorService;
-import com.fasterxml.jackson.annotation.JsonAutoDetect;
-import com.fasterxml.jackson.annotation.PropertyAccessor;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -19,7 +9,18 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.http.converter.json.Jackson2ObjectMapperBuilder;
-import springfox.documentation.swagger2.annotations.EnableSwagger2;
+
+import com.fasterxml.jackson.annotation.JsonAutoDetect;
+import com.fasterxml.jackson.annotation.PropertyAccessor;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
+import br.com.taoshu.config.SwaggerConfig;
+import br.com.taoshu.controller.ProfessorController;
+import br.com.taoshu.entity.Aluno;
+import br.com.taoshu.exception.ExceptionHandling;
+import br.com.taoshu.repository.ProfessorRepository;
+import br.com.taoshu.service.ProfessorService;
+import lombok.extern.slf4j.Slf4j;
 
 
 @SpringBootApplication
