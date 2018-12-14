@@ -24,3 +24,5 @@
 /nbdist/
 /.nb-gradle/
 tao-shu-log.log
+
+.metadata/
