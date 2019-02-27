@@ -6,11 +6,15 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.validator.internal.constraintvalidators.hv.NotBlankValidator;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import javax.persistence.*;
 import javax.validation.Constraint;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
+
+import java.io.Serializable;
 import java.time.LocalDate;
 
 /**
@@ -24,9 +28,14 @@ import java.time.LocalDate;
 @AllArgsConstructor
 @Entity
 @SequenceGenerator(name = "sequence_aluno", sequenceName = "sequence_aluno", allocationSize = 1, initialValue = 1)
-public class Aluno {
+public class Aluno implements Serializable {
 
-    @Id
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 7454765558927073722L;
+
+	@Id
     @GeneratedValue(generator = "sequence_aluno", strategy = GenerationType.AUTO)
     @Column(name = "aluno_id")
     private Long id;
@@ -44,6 +53,7 @@ public class Aluno {
 
     @Column(nullable = false)
     @NotNull
+    @JsonFormat(pattern="yyyy-MM-dd")
     private LocalDate dataNascimento;
 
     /**

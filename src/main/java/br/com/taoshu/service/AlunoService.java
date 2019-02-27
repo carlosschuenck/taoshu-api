@@ -7,36 +7,41 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Optional;
 
 /**
  * Created by Carlos Schuenck on 20/05/2018.
  */
-
-@Transactional(readOnly = false)
+@Transactional(readOnly = true)
 @Service
 public class AlunoService {
 
     @Autowired
     private AlunoRepository alunoRepository;
 
-    @Transactional(readOnly = true)
+   
     public List<Aluno> findAll() {
         return alunoRepository.findAll();
     }
-
-    public Aluno persist(Aluno aluno) { return alunoRepository.save(aluno); }
-
+    
+    @Transactional(readOnly = false)
+    public Aluno persist(Aluno aluno) { 
+    	return alunoRepository.save(aluno); 
+    }
+    
+    @Transactional(readOnly = false)
     public Aluno update(Aluno aluno) {
-        Aluno oldAluno = alunoRepository.getOne(aluno.getId());
-        oldAluno.setDataNascimento(aluno.getDataNascimento());
-        oldAluno.setNomePai(aluno.getNomePai());
-        oldAluno.setNomeMae(aluno.getNomeMae());
-        oldAluno.setNomeCompleto(aluno.getNomeCompleto());
-        oldAluno.setTurma(aluno.getTurma());
         return alunoRepository.save(aluno);
     }
-
-    public void delete(Long id) {
+    	
+    @Transactional(readOnly = false)
+    public Boolean delete(Long id) {
         alunoRepository.deleteById(id);
+        return true;
+    }
+    
+    
+    public Optional<Aluno> findById(Long id) {
+    	return alunoRepository.findById(id);
     }
 }
