@@ -8,6 +8,9 @@ import lombok.Setter;
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import java.time.LocalDate;
 
 /**
@@ -41,6 +44,7 @@ public class Professor {
 
     @Column(nullable = false)
     @NotNull
+    @JsonFormat(pattern="yyyy-MM-dd")
     private LocalDate dataNascimento;
 
 }

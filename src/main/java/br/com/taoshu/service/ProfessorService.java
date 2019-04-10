@@ -1,32 +1,39 @@
 package br.com.taoshu.service;
 
-import br.com.taoshu.entity.Professor;
-import br.com.taoshu.repository.ProfessorRepository;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.List;
+import br.com.taoshu.entity.Professor;
+import br.com.taoshu.repository.ProfessorRepository;
 
-/**
- * Created by Avell 1513 on 06/05/2018.
- */
 @Service
-@Transactional(readOnly = false)
+@Transactional(readOnly = true)
 public class ProfessorService {
 
     @Autowired
     private ProfessorRepository professorRepository;
-
-    @Transactional(readOnly = true)
+    
+    @Autowired
+    private TurmaService turmaService;
+   
     public List<Professor> findAll() {
         return professorRepository.findAll();
     }
-
+    
+    public Professor findById(Long id) {
+        return professorRepository.findById(id)
+        						  .orElseThrow(() -> new IllegalArgumentException("Não existe um professor com o id informado"));
+    }
+    
+    @Transactional(readOnly = false)
     public Professor persist(Professor professor) {
         return professorRepository.save(professor);
     }
-
+    
+    @Transactional(readOnly = false)
     public Professor update(Professor professor) {
         Professor professorOld = professorRepository.getOne(professor.getId());
         professorOld.setNomePai(professor.getNomePai());
@@ -35,8 +42,12 @@ public class ProfessorService {
         professorOld.setDataNascimento(professor.getDataNascimento());
         return professorRepository.save(professorOld);
     }
-
+    
+    @Transactional(readOnly = false)
     public void delete(Long id) {
+    	turmaService.findByProfessorId(id).forEach(turma ->{
+    		turmaService.delete(turma.getId());
+    	});
         professorRepository.deleteById(id);
     }
 }
