@@ -13,28 +13,31 @@ import br.com.taoshu.repository.ProfessorRepository;
 @Transactional(readOnly = true)
 public class ProfessorService {
 
-    @Autowired
-    private ProfessorRepository professorRepository;
-    
-    @Autowired
-    private TurmaService turmaService;
-   
-    public List<Professor> findAll() {
+    private final ProfessorRepository professorRepository;
+
+    private final TurmaService turmaService;
+
+    public ProfessorService(ProfessorRepository professorRepository, TurmaService turmaService) {
+        this.professorRepository = professorRepository;
+        this.turmaService = turmaService;
+    }
+
+    public List<Professor> buscarTodos() {
         return professorRepository.findAll();
     }
-    
-    public Professor findById(Long id) {
+
+    public Professor buscarPorId(Long id) {
         return professorRepository.findById(id)
         						  .orElseThrow(() -> new IllegalArgumentException("Não existe um professor com o id informado"));
     }
-    
-    @Transactional(readOnly = false)
-    public Professor persist(Professor professor) {
+
+    @Transactional
+    public Professor inserir(Professor professor) {
         return professorRepository.save(professor);
     }
-    
-    @Transactional(readOnly = false)
-    public Professor update(Professor professor) {
+
+    @Transactional
+    public Professor atualizar(Professor professor) {
         Professor professorOld = professorRepository.getOne(professor.getId());
         professorOld.setNomePai(professor.getNomePai());
         professorOld.setNomeMae(professor.getNomeMae());
@@ -42,12 +45,10 @@ public class ProfessorService {
         professorOld.setDataNascimento(professor.getDataNascimento());
         return professorRepository.save(professorOld);
     }
-    
-    @Transactional(readOnly = false)
-    public void delete(Long id) {
-    	turmaService.findByProfessorId(id).forEach(turma ->{
-    		turmaService.delete(turma.getId());
-    	});
+
+    @Transactional
+    public void deletar(Long id) {
+    	turmaService.buscarPorProfessorId(id).forEach(turma ->	turmaService.deletar(turma.getId()));
         professorRepository.deleteById(id);
     }
 }

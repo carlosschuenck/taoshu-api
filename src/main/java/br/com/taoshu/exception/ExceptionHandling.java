@@ -14,20 +14,22 @@ import javax.validation.ValidationException;
 @ControllerAdvice
 public class ExceptionHandling extends ResponseEntityExceptionHandler {
 
+    private static final String MSG_GENERICA = "Um erro inesperado aconteceu. Entre em contato com o administrador do sistema.";
+
     @ExceptionHandler(Exception.class)
-    public ResponseEntity<ExceptionMessage> generciException(Exception exception){
+    public ResponseEntity<ExceptionMessage> generciException(Exception exception) {
         ExceptionMessage exceptionMessage = new ExceptionMessage();
-        exceptionMessage.setMessage("Deu ruin no baguio.");
-        exceptionMessage.setDetail(exception.getMessage());
+        exceptionMessage.getMensagens().add(MSG_GENERICA);
+        exceptionMessage.getMendagensDesenvolvedor().add(exception.getMessage());
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(exceptionMessage);
     }
 
 
     @ExceptionHandler(ValidationException.class)
-    public ResponseEntity<ExceptionMessage> constraintViolation(ValidationException exception){
+    public ResponseEntity<ExceptionMessage> constraintViolation(ValidationException exception) {
         ExceptionMessage exceptionMessage = new ExceptionMessage();
-        exceptionMessage.setMessage("(ValidationException) Deu ruin no baguio.");
-        exceptionMessage.setDetail(exception.getMessage());
+        exceptionMessage.getMensagens().add("ValidationException " + MSG_GENERICA);
+        exceptionMessage.getMendagensDesenvolvedor().add(exception.getMessage());
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(exceptionMessage);
     }
 }

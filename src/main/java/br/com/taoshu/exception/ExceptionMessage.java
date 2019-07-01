@@ -1,9 +1,9 @@
 package br.com.taoshu.exception;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by Avell 1513 on 17/05/2018.
@@ -12,8 +12,8 @@ import lombok.Setter;
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
-
-public class ExceptionMessage {
-    private String message;
-    private String detail;
+@Builder
+class ExceptionMessage {
+    private List<String> mensagens = new ArrayList<>();
+    private List<String> mendagensDesenvolvedor = new ArrayList<>();
 }

@@ -1,13 +1,11 @@
 package br.com.taoshu.service;
 
-import java.util.List;
-
-import org.springframework.beans.factory.annotation.Autowired;
+import br.com.taoshu.entity.Turma;
+import br.com.taoshu.repository.TurmaRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import br.com.taoshu.entity.Turma;
-import br.com.taoshu.repository.TurmaRepository;
+import java.util.List;
 
 /**
  * Created by Carlos Schuenck on 20/05/2018.
@@ -15,46 +13,50 @@ import br.com.taoshu.repository.TurmaRepository;
 
 @Service
 @Transactional(readOnly = true)
-public class TurmaService{
+public class TurmaService {
 
-    @Autowired
-    private TurmaRepository turmaRepository;
-    
-    @Autowired
-    private AlunoService alunoService;
+    private final TurmaRepository turmaRepository;
 
-    public List<Turma> findAll() {
+    private final AlunoService alunoService;
+
+    public TurmaService(TurmaRepository turmaRepository, AlunoService alunoService) {
+        this.turmaRepository = turmaRepository;
+        this.alunoService = alunoService;
+    }
+
+    public List<Turma> buscarTodos() {
         return turmaRepository.findAll();
     }
-    
-    public List<Turma> findByProfessorId(Long id) {
+
+    List<Turma> buscarPorProfessorId(Long id) {
         return turmaRepository.findByProfessorId(id);
     }
-    
-    public Turma findById(Integer id) {
+
+    public Turma buscarPorId(Integer id) {
         return turmaRepository.findById(id).orElse(null);
     }
-    
-    @Transactional(readOnly = false)
-    public Turma persist(Turma turma) {
+
+    @Transactional
+    public Turma inserir(Turma turma) {
         return turmaRepository.save(turma);
     }
-    
-    @Transactional(readOnly = false)
-    public Turma update(Turma turma) {
-        Turma classToUpdate = turmaRepository.getOne(turma.getId());
-        classToUpdate.setDiaSemana(turma.getDiaSemana());
-        classToUpdate.setHoraFim(turma.getHoraFim());
-        classToUpdate.setHoraInicio(turma.getHoraInicio());
-        if(turma.getProfessor().getId() != null) classToUpdate.setProfessor(turma.getProfessor());
-        return turmaRepository.save(classToUpdate);
+
+    @Transactional
+    public Turma atualizar(Turma turma) {
+        Turma ultimaVersao = turmaRepository.getOne(turma.getId());
+        ultimaVersao.setDiaSemana(turma.getDiaSemana());
+        ultimaVersao.setHoraFim(turma.getHoraFim());
+        ultimaVersao.setHoraInicio(turma.getHoraInicio());
+        if (turma.getProfessor().getId() != null) ultimaVersao.setProfessor(turma.getProfessor());
+        return turmaRepository.save(ultimaVersao);
     }
-    
-    @Transactional(readOnly = false)
-    public void delete(Integer id) {
-    	alunoService.findByTumaId(id).forEach(aluno ->{
-    		aluno.setTurma(null);
-    		alunoService.update(aluno);
+
+    @Transactional
+    public void deletar(Integer id) {
+        alunoService.buscarTurmaPorId(id)
+                    .forEach(aluno -> {
+            aluno.setTurma(null);
+            alunoService.atualizar(aluno);
         });
         turmaRepository.deleteById(id);
     }

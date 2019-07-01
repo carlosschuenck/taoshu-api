@@ -1,15 +1,14 @@
 package br.com.taoshu.repository;
 
-import java.util.List;
-
+import br.com.taoshu.entity.Aluno;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import br.com.taoshu.entity.Aluno;
+import java.util.List;
 
 /**
  * Created by Carlos Schuenck on 20/05/2018.
  */
-public interface AlunoRepository extends JpaRepository<Aluno, Long>{
-	
-	public List<Aluno> findByTurmaId(Integer id);
+public interface AlunoRepository extends JpaRepository<Aluno, Long> {
+
+    List<Aluno> findByTurmaId(Integer id);
 }

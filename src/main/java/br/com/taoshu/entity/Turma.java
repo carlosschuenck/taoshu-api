@@ -1,24 +1,14 @@
 package br.com.taoshu.entity;
 
-import java.time.LocalTime;
-
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
-import javax.persistence.SequenceGenerator;
-import javax.validation.constraints.NotNull;
-
 import com.fasterxml.jackson.annotation.JsonFormat;
-
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+
+import javax.persistence.*;
+import javax.validation.constraints.NotNull;
+import java.time.LocalTime;
 
 /**
  * Created by Carlos Schuenck on 01/05/2018.
@@ -28,7 +18,7 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@SequenceGenerator(name = "sequence_turma", sequenceName = "sequence_turma", allocationSize = 1, initialValue = 1)
+@SequenceGenerator(name = "sequence_turma", sequenceName = "sequence_turma", allocationSize = 1)
 public class Turma {
 
     @Id
@@ -36,7 +26,7 @@ public class Turma {
     @Column(name = "turma_id")
     private Integer id;
 
-    @Column(nullable =  false)
+    @Column(nullable = false)
     @NotNull
     @JsonFormat(pattern = "HH:mm")
     private LocalTime horaInicio;
@@ -44,7 +34,7 @@ public class Turma {
     @Column
     @JsonFormat(pattern = "HH:mm")
     private LocalTime horaFim;
-    
+
     @Column
     private String diaSemana;
 

@@ -19,7 +19,7 @@ import java.time.LocalDate;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@SequenceGenerator(name = "sequence_presenca", sequenceName = "sequence_presenca", initialValue = 1,allocationSize = 1)
+@SequenceGenerator(name = "sequence_presenca", sequenceName = "sequence_presenca", allocationSize = 1)
 public class Presenca {
 
     @Id

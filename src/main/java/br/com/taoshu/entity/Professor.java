@@ -1,5 +1,6 @@
 package br.com.taoshu.entity;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -8,9 +9,6 @@ import lombok.Setter;
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
-
-import com.fasterxml.jackson.annotation.JsonFormat;
-
 import java.time.LocalDate;
 
 /**
@@ -23,7 +21,7 @@ import java.time.LocalDate;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@SequenceGenerator(name = "sequence_professor", sequenceName = "sequence_professor", allocationSize = 1, initialValue = 1)
+@SequenceGenerator(name = "sequence_professor", sequenceName = "sequence_professor", allocationSize = 1)
 public class Professor {
 
     @Id
@@ -44,7 +42,7 @@ public class Professor {
 
     @Column(nullable = false)
     @NotNull
-    @JsonFormat(pattern="yyyy-MM-dd")
+    @JsonFormat(pattern = "yyyy-MM-dd")
     private LocalDate dataNascimento;
 
 }

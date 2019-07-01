@@ -10,9 +10,9 @@ import org.springframework.web.filter.CorsFilter;
 
 @Configuration
 public class CorsConfig {
-	
+
     @Bean
-    public FilterRegistrationBean corsFilter() {
+    public FilterRegistrationBean<CorsFilter> corsFilter() {
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         CorsConfiguration config = new CorsConfiguration().applyPermitDefaultValues();
         config.addAllowedMethod(HttpMethod.PUT);
@@ -21,7 +21,7 @@ public class CorsConfig {
         config.addAllowedMethod(HttpMethod.POST);
         config.addAllowedMethod(HttpMethod.OPTIONS);
         source.registerCorsConfiguration("/**", config);
-        FilterRegistrationBean bean = new FilterRegistrationBean(new CorsFilter(source));
+        FilterRegistrationBean<CorsFilter> bean = new FilterRegistrationBean<>(new CorsFilter(source));
         bean.setOrder(0);
         return bean;
     }

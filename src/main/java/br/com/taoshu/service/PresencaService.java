@@ -2,7 +2,6 @@ package br.com.taoshu.service;
 
 import br.com.taoshu.entity.Presenca;
 import br.com.taoshu.repository.PresencaRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -12,29 +11,32 @@ import java.util.List;
  * Created by Carlos Schuenck on 20/05/2018.
  */
 @Service
-@Transactional(readOnly = false)
+@Transactional
 public class PresencaService {
 
-    @Autowired
-    private PresencaRepository presencaRepository;
+    private final PresencaRepository presencaRepository;
+
+    public PresencaService(PresencaRepository presencaRepository) {
+        this.presencaRepository = presencaRepository;
+    }
 
     @Transactional(readOnly = true)
-    public List<Presenca> findAll() {
+    public List<Presenca> buscarTodos() {
         return presencaRepository.findAll();
     }
 
-    public Presenca persist(Presenca presenca) {
+    public Presenca inserir(Presenca presenca) {
         return presencaRepository.save(presenca);
     }
 
-    public Presenca update(Presenca presenca) {
-        Presenca oldPresenca = presencaRepository.getOne(presenca.getId());
-        oldPresenca.setData(presenca.getData());
-        oldPresenca.setPresenca(presenca.getPresenca());
-        return presencaRepository.save(oldPresenca);
+    public Presenca atualizar(Presenca presenca) {
+        Presenca ultimaVersao = presencaRepository.getOne(presenca.getId());
+        ultimaVersao.setData(presenca.getData());
+        ultimaVersao.setPresenca(presenca.getPresenca());
+        return presencaRepository.save(ultimaVersao);
     }
 
-    public void delete(Long id) {
+    public void deletar(Long id) {
         presencaRepository.deleteById(id);
     }
 }

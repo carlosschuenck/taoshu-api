@@ -1,19 +1,14 @@
 package br.com.taoshu.entity;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.hibernate.validator.internal.constraintvalidators.hv.NotBlankValidator;
-
-import com.fasterxml.jackson.annotation.JsonFormat;
 
 import javax.persistence.*;
-import javax.validation.Constraint;
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
-
 import java.io.Serializable;
 import java.time.LocalDate;
 
@@ -27,15 +22,12 @@ import java.time.LocalDate;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@SequenceGenerator(name = "sequence_aluno", sequenceName = "sequence_aluno", allocationSize = 1, initialValue = 1)
+@SequenceGenerator(name = "sequence_aluno", sequenceName = "sequence_aluno", allocationSize = 1)
 public class Aluno implements Serializable {
 
-    /**
-	 * 
-	 */
-	private static final long serialVersionUID = 7454765558927073722L;
+    private static final long serialVersionUID = 7454765558927073722L;
 
-	@Id
+    @Id
     @GeneratedValue(generator = "sequence_aluno", strategy = GenerationType.AUTO)
     @Column(name = "aluno_id")
     private Long id;
@@ -53,7 +45,7 @@ public class Aluno implements Serializable {
 
     @Column(nullable = false)
     @NotNull
-    @JsonFormat(pattern="yyyy-MM-dd")
+    @JsonFormat(pattern = "yyyy-MM-dd")
     private LocalDate dataNascimento;
 
     /**

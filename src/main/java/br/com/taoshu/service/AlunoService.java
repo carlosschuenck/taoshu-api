@@ -1,14 +1,12 @@
 package br.com.taoshu.service;
 
-import java.util.List;
-import java.util.Optional;
-
-import org.springframework.beans.factory.annotation.Autowired;
+import br.com.taoshu.entity.Aluno;
+import br.com.taoshu.repository.AlunoRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import br.com.taoshu.entity.Aluno;
-import br.com.taoshu.repository.AlunoRepository;
+import java.util.List;
+import java.util.Optional;
 
 /**
  * Created by Carlos Schuenck on 20/05/2018.
@@ -17,35 +15,30 @@ import br.com.taoshu.repository.AlunoRepository;
 @Service
 public class AlunoService {
 
-    @Autowired
-    private AlunoRepository alunoRepository;
+    private final AlunoRepository alunoRepository;
 
-   
-    public List<Aluno> findAll() {
-        return alunoRepository.findAll();
+    public AlunoService(AlunoRepository alunoRepository) {
+        this.alunoRepository = alunoRepository;
     }
-    
-    public List<Aluno> findByTumaId(Integer idTurma) {
-        return alunoRepository.findByTurmaId(idTurma);
+
+    public List<Aluno> buscarTodos() { return alunoRepository.findAll(); }
+
+    List<Aluno> buscarTurmaPorId(Integer turmaId) {
+        return alunoRepository.findByTurmaId(turmaId);
     }
-    
-    @Transactional(readOnly = false)
-    public Aluno persist(Aluno aluno) { 
-    	return alunoRepository.save(aluno); 
+
+    @Transactional
+    public Aluno inserir(Aluno aluno) {
+    	return alunoRepository.save(aluno);
     }
-    
-    @Transactional(readOnly = false)
-    public Aluno update(Aluno aluno) {
+
+    @Transactional
+    public Aluno atualizar(Aluno aluno) {
         return alunoRepository.save(aluno);
     }
-    	
-    @Transactional(readOnly = false)
-    public Boolean delete(Long id) {
-        alunoRepository.deleteById(id);
-        return true;
-    }
-    
-    public Optional<Aluno> findById(Long id) {
-    	return alunoRepository.findById(id);
-    }
+
+    @Transactional
+    public void deletar(Long id) { alunoRepository.deleteById(id); }
+
+    public Optional<Aluno> buscarPorId(Long id) { return alunoRepository.findById(id); }
 }
